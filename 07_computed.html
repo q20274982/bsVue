@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <label for="">a:</label>
+    <input type="number" v-model="a">
+
+    <label for="">b:</label>
+    <input type="number" v-model="b">
+    <br>
+    <label for="">加總:</label><span>{{ sum }}</span>
+
+    <ul>
+      <li v-for="(item, index) in cartList">
+        品名: {{ item.productName }} 單價: {{ item.price }}
+        數量: <input type="text" v-model="item.amount" type="number">
+      </li>
+    </ul>
+
+    <p>總計: {{ total }}</p>
+    <p>{{ totalMsg }}</p>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script>
+    let app = new Vue({
+      el: '#app',
+      data: {
+        a: 0,
+        b: 0,
+        cartList: [
+          { productName: '牛奶', price: 50, amount: 10 },
+          { productName: '咖啡', price: 20, amount: 2 },
+          { productName: '奶茶', price: 10, amount: 3 },
+          { productName: '奶粉', price: 15, amount: 1 },
+        ],
+        totalMsg: ''
+      },
+      computed: {
+        sum() {
+          return parseInt(this.a) + parseInt(this.b)
+        },
+        total() {
+          let result = this.cartList
+                        .map(el => el.price * el.amount)
+                        .reduce((a, b) => { return a + b })
+          return result
+        }
+      },
+      watch: {
+        total() {
+          this.totalMsg = `${new Date()} 購物車有變更`
+        }
+      }
+    })
+  </script>
+</body>
+</html>

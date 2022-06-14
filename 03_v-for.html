@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <div id="app">
+    <ul>
+      <li v-for="(item, index) in arr">{{ index }}: {{ item }}</li>
+    </ul>
+
+    <ul>
+      <li v-for="(item, index) in arr2">{{ item.name }} {{ item.age }}</li>
+    </ul>
+
+    <ul>
+      <li v-for="(item, index) in 10" :key="index">{{ item }}</li>
+    </ul>
+
+    <button v-on:click="showAll">顯示全部</button>
+    <button v-on:click="showMoreThenTwenty">顯示大於20歲</button>
+
+    <ul>
+      <li v-for="(item, index) in arr3">{{ item.name }} {{ item.age }}</li>
+    </ul>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script>
+    const arr = ['Apple', 'Banana', 'Orange', 'PineApple']
+    const arr2 = [
+      { name: 'Jimmy', age: 25 },
+      { name: 'Andy', age: 10 },
+      { name: 'Jim', age: 30 },
+      { name: 'Amy', age: 50 },
+      { name: 'David', age: 20 }
+    ]
+    
+    let app = new Vue({
+      el: '#app',
+      data: {
+        arr,
+        arr2,
+        arr3: []
+      },
+      methods: {
+        showAll() {
+          this.arr3 = this.arr2
+        },
+        showMoreThenTwenty() {
+          this.arr3 = this.arr2.filter(x => x.age >= 20)
+        }
+      },
+    })
+  </script>
+</body>
+</html>
